@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejinews サインアップ</title>
+  <style>
+    /* サインアップページ用のスタイル */
+
+    /* #div_signupのスタイルを定義 */
+    #div_signup {
+      background-color: #f0f2f5;
+      /* 背景色を淡いグレーに設定 */
+      padding: 20px;
+      /* 内側の余白を20pxに設定 */
+      border-radius: 8px;
+      /* 角を丸くする */
+      max-width: 500px;
+      /* 最大幅を500pxに設定 */
+      margin: auto;
+      /* 左右中央揃え */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      /* 影を追加 */
+      text-align: center;
+      /* テキストを中央揃え */
+      font-family: Arial, sans-serif;
+      /* フォントファミリーをArialに設定 */
+    }
+
+    /* 見出しh1のスタイルを定義 */
+    #div_signup h1 {
+      color: #333;
+      /* 文字色を濃いグレーに設定 */
+      margin-bottom: 20px;
+      /* 下部の余白を20pxに設定 */
+      font-size: 24px;
+      /* フォントサイズを24pxに設定 */
+    }
+
+    /* formのスタイルを定義 */
+    #div_signup form {
+      display: flex;
+      /* フレックスボックスを使用 */
+      flex-direction: column;
+      /* 縦方向にアイテムを配置 */
+      align-items: center;
+      /* アイテムを中央揃え */
+    }
+
+    /* 各pタグのスタイルを定義 */
+    #div_signup form p {
+      width: 100%;
+      /* 幅を100%に設定 */
+      margin-bottom: 15px;
+      /* 下部の余白を15pxに設定 */
+      text-align: left;
+      /* テキストを左揃え */
+    }
+
+    /* .form-controlのスタイルを定義 */
+    #div_signup .form-control {
+      width: 100%;
+      /* 幅を100%に設定 */
+      padding: 10px;
+      /* 内側の余白を10pxに設定 */
+      border: 1px solid #ccc;
+      /* 境界線を薄いグレーに設定 */
+      border-radius: 4px;
+      /* 角を丸くする */
+      margin-bottom: 10px;
+      /* 下部の余白を10pxに設定 */
+      box-sizing: border-box;
+      /* ボックスのサイズを境界線と内側の余白を含むように設定 */
+    }
+
+    /* 送信ボタンのスタイルを定義 */
+    #div_signup input[type="submit"] {
+      background-color: #007bff;
+      /* 背景色を青に設定 */
+      color: #fff;
+      /* 文字色を白に設定 */
+      border: none;
+      /* 境界線をなしに設定 */
+      padding: 10px 20px;
+      /* 内側の余白を上下10px、左右20pxに設定 */
+      border-radius: 4px;
+      /* 角を丸くする */
+      cursor: pointer;
+      /* カーソルをポインターに設定 */
+      transition: background-color 0.3s ease;
+      /* 背景色の変化にアニメーションを追加 */
+      width: 100%;
+      /* 幅を100%に設定 */
+      box-sizing: border-box;
+      /* ボックスのサイズを境界線と内側の余白を含むように設定 */
+    }
+
+    /* 送信ボタンのホバー時のスタイルを定義 */
+    #div_signup input[type="submit"]:hover {
+      background-color: #0056b3;
+      /* ホバー時の背景色を濃い青に設定 */
+    }
+
+    /* リンクのスタイルを定義 */
+    #div_signup a {
+      color: #007bff;
+      /* 文字色を青に設定 */
+      text-decoration: none;
+      /* テキストデコレーションをなしに設定 */
+      margin-top: 10px;
+      /* 上部の余白を10pxに設定 */
+      display: inline-block;
+      /* インラインブロック要素に設定 */
+      transition: color 0.3s ease;
+      /* 文字色の変化にアニメーションを追加 */
+    }
+
+    /* リンクのホバー時のスタイルを定義 */
+    #div_signup a:hover {
+      color: #0056b3;
+      /* ホバー時の文字色を濃い青に設定 */
+    }
+
+    /* 小さなテキストのスタイルを定義 */
+    #div_signup small {
+      color: grey;
+      /* 文字色をグレーに設定 */
+    }
+
+    /* エラーメッセージのスタイルを定義 */
+    #div_signup p.error {
+      color: red;
+      /* 文字色を赤に設定 */
+    }
+
+    /* リストのスタイルを定義 */
+    #div_signup ul {
+      list-style-type: none;
+      /* リストのスタイルを「なし」に設定 */
+      padding: 0;
+      /* リストのパディングをゼロに設定 */
+    }
+  </style>
+</head>
+
+<body>
+  <div id="div_signup">
+    <h1>登録してコンテンツを楽しもう</h1>
+    <form method="post">
+      {% csrf_token %}
+
+      {% for field in form %}
+      <p>
+        <!-- フィールドのラベルを表示 -->
+        {{ field.label_tag }}<br>
+        <!-- フィールドの入力要素を表示 -->
+        {{ field }}
+        <!-- フィールドのヘルプテキストがある場合に表示 -->
+        {% if field.help_text %}
+        <small>{{ field.help_text }}</small>
+        {% endif %}
+        <!-- フィールドのエラーメッセージを表示 -->
+        {% for error in field.errors %}
+        <span class="error">{{ error }}</span>
+        {% endfor %}
+      </p>
+      {% endfor %}
+
+      <!-- サインアップボタン -->
+      <input type="submit" value="Sign up">
+    </form>
+    <br>
+    <!-- ログインページへのリンク -->
+    <a href="{% url 'accounts:login' %}">アカウントをすでにお持ちの場合は、ここからログインしてください</a>
+    <br>
+    <!-- トップページへのリンク -->
+    <p><a href="{% url 'Ejinews:index' %}">登録をやめてトップページに戻る</a></p>
+  </div>
+</body>
+
+</html>

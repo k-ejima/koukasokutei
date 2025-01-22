@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejinews ログイン</title>
+  <style>
+    /* ログインページ用のスタイル */
+
+    /* #login-pageのスタイルを定義 */
+    #login-page {
+      display: flex;
+      /* フレックスボックスを使用 */
+      justify-content: center;
+      /* 水平方向に中央揃え */
+      align-items: center;
+      /* 垂直方向に中央揃え */
+      height: 100vh;
+      /* ビューポートの高さを100%に設定 */
+      margin: 0;
+      /* 余白をゼロに設定 */
+      background-color: #f0f2f5;
+      /* 背景色を淡いグレーに設定 */
+    }
+
+    /* .form-signinのスタイルを定義 */
+    .form-signin {
+      background-color: #fff;
+      /* 背景色を白に設定 */
+      padding: 20px;
+      /* 内側の余白を20pxに設定 */
+      border-radius: 8px;
+      /* 角を丸くする */
+      width: 100%;
+      /* 幅を100%に設定 */
+      max-width: 400px;
+      /* 最大幅を400pxに設定 */
+      text-align: center;
+      /* テキストを中央揃え */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      /* 影を追加 */
+    }
+
+    /* .form-controlのスタイルを定義 */
+    .form-signin .form-control {
+      width: 80%;
+      /* 入力フォームの幅を狭く設定 */
+      padding: 10px;
+      /* 内側の余白を10pxに設定 */
+      margin-bottom: 15px;
+      /* 下部の余白を15pxに設定 */
+      border: 1px solid #ccc;
+      /* 境界線を薄いグレーに設定 */
+      border-radius: 4px;
+      /* 角を丸くする */
+      margin-left: auto;
+      /* 左余白を自動調整 */
+      margin-right: auto;
+      /* 右余白を自動調整 */
+    }
+
+    /* .btn-primaryのスタイルを定義 */
+    .form-signin .btn-primary {
+      width: 80%;
+      /* ボタンの幅を狭く設定 */
+      padding: 10px;
+      /* 内側の余白を10pxに設定 */
+      background-color: #007bff;
+      /* 背景色を青に設定 */
+      border: none;
+      /* 境界線をなしに設定 */
+      border-radius: 4px;
+      /* 角を丸くする */
+      color: #fff;
+      /* 文字色を白に設定 */
+      font-size: 16px;
+      /* フォントサイズを16pxに設定 */
+      cursor: pointer;
+      /* カーソルをポインターに設定 */
+    }
+
+    /* .btn-primaryホバー時のスタイルを定義 */
+    .form-signin .btn-primary:hover {
+      background-color: #0056b3;
+      /* ホバー時の背景色を濃い青に設定 */
+    }
+
+    /* エラーメッセージのスタイルを定義 */
+    .form-signin p {
+      color: red;
+      /* 文字色を赤に設定 */
+    }
+  </style>
+</head>
+
+<body id="login-page">
+  <main class="form-signin">
+    <!-- フォームにエラーがある場合、エラーメッセージを表示 -->
+    {% if form.errors %}
+    <p style="color: red;">ユーザー名とパスワードが一致しません。</p>
+    {% endif %}
+    <form method="post">
+      {% csrf_token %}
+
+      <!-- ユーザーネームの入力フィールド -->
+      <div class="enter_username">
+        <label for="Username" class="visually-hidden">ユーザーネーム</label>
+        <input type="text" name="username" id="id_username" maxlength="150" autocapitalize="none"
+          autocomplete="username" class="form-control" placeholder="ユーザー名" required autofocus>
+      </div>
+
+      <!-- パスワードの入力フィールド -->
+      <div class="enter_password">
+        <label for="Password" class="visually-hidden">パスワード</label>
+        <input type="password" name="password" id="id_password" autocomplete="current-password" class="form-control"
+          placeholder="パスワード" required>
+      </div>
+
+      <!-- ログインボタン -->
+      <input class="w-100 btn btn-lg btn-primary" type="submit" value="ログイン">
+      <br><br>
+      <!-- 隠しフィールド、次のページのURLを設定 -->
+      <input type="hidden" name="next" value="{% url 'Ejinews:index' %}">
+    </form>
+  </main>
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}検索結果{% endblock %}
+
+{% block nav %}
+<!-- ナビゲーションバーを非表示にするための空ブロック -->
+{% endblock %}
+
+{% block contents %}
+<!-- コンテンツブロックの開始 -->
+
+<!-- 検索結果の見出し -->
+<h1 class="search-results-title">検索結果</h1>
+
+<!-- 検索フォーム -->
+<form method="get" class="search-form">
+    {{ form.as_p }} <!-- フォームフィールドを段落として表示 -->
+    <button type="submit" class="btn btn-primary">検索</button> <!-- 検索ボタン -->
+    <!-- フォームに非フィールドエラーがある場合、エラーメッセージを表示 -->
+    {% if form.non_field_errors %}
+    <div class="errorlist">{{ form.non_field_errors }}</div>
+    {% endif %}
+</form>
+
+<!-- 検索結果リスト -->
+<ul class="search-results-list">
+    <!-- 検索結果がある場合、各記事を表示 -->
+    {% for article in results %}
+    <li class="search-results-item">
+        <a href="{% url 'Ejinews:news_detail' article.id %}">{{ article.title }}</a> <!-- 記事のタイトルとリンク -->
+    </li>
+    {% empty %}
+    <!-- 検索結果がない場合のメッセージ -->
+    <li class="search-results-empty">該当する記事が見つかりませんでした。</li>
+    {% endfor %}
+</ul>
+
+<!-- トップページへのリンク -->
+<p class="search-results-link"><a href="{% url 'Ejinews:index' %}">トップページへ</a></p>
+
+{% endblock %} <!-- コンテンツブロックの終了 -->

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejinews 登録完了</title>
+    <style>
+        /* 全体のスタイル */
+        body {
+            font-family: Arial, sans-serif;
+            /* フォントファミリーをArialに設定 */
+            background-color: #f0f2f5;
+            /* 背景色を淡いグレーに設定 */
+            display: flex;
+            /* フレックスボックスを使用して、中央揃え */
+            justify-content: center;
+            /* 水平方向に中央揃え */
+            align-items: center;
+            /* 垂直方向に中央揃え */
+            height: 100vh;
+            /* ビューポートの高さを100%に設定 */
+            margin: 0;
+            /* 余白をゼロに設定 */
+        }
+
+        /* メッセージコンテナのスタイル */
+        .message-container {
+            background-color: #fff;
+            /* 背景色を白に設定 */
+            padding: 20px;
+            /* 内側の余白を20pxに設定 */
+            border-radius: 8px;
+            /* 角を丸くする */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            /* 影を追加 */
+            text-align: center;
+            /* テキストを中央揃え */
+        }
+
+        /* 見出しのスタイル */
+        .message-container h3 {
+            color: #333;
+            /* 文字色を濃いグレーに設定 */
+            margin-bottom: 20px;
+            /* 下部の余白を20pxに設定 */
+        }
+
+        /* リンクのスタイル */
+        .message-container a {
+            display: inline-block;
+            /* インラインブロック要素に設定 */
+            margin: 10px 0;
+            /* 上下の余白を10pxに設定 */
+            padding: 10px 20px;
+            /* 内側の余白を上下10px、左右20pxに設定 */
+            background-color: #007bff;
+            /* 背景色を青に設定 */
+            color: #fff;
+            /* 文字色を白に設定 */
+            text-decoration: none;
+            /* テキストデコレーションをなしに設定 */
+            border-radius: 4px;
+            /* 角を丸くする */
+            transition: background-color 0.3s ease;
+            /* 背景色の変化にアニメーションを追加 */
+        }
+
+        /* リンクのホバー時のスタイル */
+        .message-container a:hover {
+            background-color: #0056b3;
+            /* ホバー時の背景色を濃い青に設定 */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="message-container">
+        <!-- 登録完了メッセージの見出し -->
+        <h3>登録が完了しました</h3>
+        <!-- ログインページへのリンク -->
+        <p><a href="{% url 'accounts:login' %}">ログインはこちら</a></p>
+        <!-- ホームページへのリンク -->
+        <p><a href="{% url 'Ejinews:index' %}">ホームに戻る</a></p>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Ejinews{% endblock %}
+
+{% block header %}
+<header class="masthead" style="background-image: url({% static 'assets/img/詳細の写真.jpg' %})">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="post-heading">
+                    <h1>{{ object.title }}</h1>
+                    <h2 class="subheading">{{ object.content|truncatechars:30 }}</h2>
+                    <span class="meta">
+                        <a href="{% url 'Ejinews:index' %}">Ejinews</a>
+                        {{ object.posted_at }}に投稿/ジャンル: {{ object.category }}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+{% endblock %}
+
+{% block contents %}
+<article class="mb-4">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <p>{{ object.content }}</p>
+            </div>
+        </div>
+    </div>
+</article>
+<hr>
+<!-- コメントセクションの見出し -->
+<h2 class="comments-heading">コメント</h2>
+
+<!-- コメントリストを表示するコンテナ -->
+<div>
+    <!-- コメントがある場合、各コメントを表示 -->
+    {% for comment in comments %}
+    <div>
+        <!-- コメントのユーザー名と投稿日を表示 -->
+        <strong>{{ comment.user.username }}</strong> - {{ comment.posted_at }}<br>
+        <!-- コメントの内容を表示 -->
+        <p>{{ comment.content }}</p>
+    </div>
+    <hr>
+    {% empty %}
+    <!-- コメントがない場合のメッセージ -->
+    <p>コメントはまだありません。</p>
+    {% endfor %}
+</div>
+
+<!-- ユーザーが認証されている場合、コメント投稿フォームを表示 -->
+{% if user.is_authenticated %}
+<form method="post" action="{% url 'Ejinews:add_comment' news_id=object.id %}">
+    {% csrf_token %}
+    <!-- フォームグループでコメント入力フィールドをラップ -->
+    <div class="form-group">
+        {{ form.as_p }} <!-- フォームフィールドを段落として表示 -->
+    </div>
+    <!-- コメント投稿ボタン -->
+    <button type="submit_comment">コメントを投稿</button>
+</form>
+{% else %}
+<!-- ユーザーが認証されていない場合のメッセージ -->
+<p>コメントを投稿するには<a href="{% url 'accounts:login' %}">ログイン</a>してください。</p>
+{% endif %}
+{% endblock %}
